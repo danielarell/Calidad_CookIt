@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Login_register</title>
+</head>
+<body>
+    <a href="../index.html" id="back-btn" class="back-link">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    <div class="container">
+        <div class="login-signup">
+            <form action="" class="log-in-form" onsubmit="return false;">
+                <h2 class="title">Log in</h2>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="email" placeholder="Email" required id="login_email">
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password" required id="password">
+                </div>
+                <button class="btn" onclick="login()">Log in</button>
+                <p class="account-text">Don't have an account? <a href="#" id="sign-up-btn2">Sign up</a></p>
+            </form>
+            <form action="" class="sign-up-form" onsubmit="return false;">
+                <h2 class="title">Sign up</h2>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Username" required id="username">
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Name" required id="name">
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="Email" required id="sign_email">
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password" required id="sign_password">
+                </div>
+                <div class="input-field">
+                    <i class="fa fa-globe"></i>
+                    <input type="text" placeholder="Country" required id="country">
+                </div>
+                <button class="btn" onclick="signUp()">Sign Up</button>
+                <p class="account-text">Already have an account? <a href="#" id="Log-in-btn2">Sign in</a></p>
+            </form>
+        </div>
+        <div class="panels-container">
+            <div class="panel left-panel">
+                <div class="content">
+                    <h3>Already part of the Community?</h3>
+                    <button class="btn" id="Log-in-btn">Log in</button>
+                </div>
+            </div>
+            <div class="panel right-panel">
+                <div class="content">
+                    <h3>New to tastynessss??</h3>
+                    <button class="btn" id="sign-up-btn">Sign up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./login.js"></script>
+</body>
+</html>

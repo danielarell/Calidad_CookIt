@@ -1,0 +1,27 @@
+.action-btn{
+    background-color: #FFDCF7;
+    padding: 0.5rem 1rem;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: scale 0.2 ease;
+}
+
+.action-btn:hover{
+    scale: 1.05;
+    color: #fff;
+}
+
+.action-btn:active{
+    scale: 0.95;
+    color: #fff;
+}
+
+#registroRecetaModal{
+    font-family: 'Bilbo', cursive;
+}
+
+#Add{
+    background-color: #FFB3B3;
+}

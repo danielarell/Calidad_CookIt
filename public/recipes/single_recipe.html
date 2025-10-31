@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./styleRecipe.css">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <a class="navbar-brand" href="../index.html">COOK IT</a>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="../index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../Search_Page/index.html">Search</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../recipes/recipes_page.html">Recipes</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="../Login_SignUp_Page/index.html">Log In</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../profile_page/index.html">My Profile</a>
+              </li>
+            </ul>
+          </form>
+        </div>
+      </div>
+    </nav>
+  
+    <!-- Modal -->
+    <div class="modal fade" id="recipeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Update Recipe</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="recipeForm">
+              <div class="mb-3">
+                <label for="title" class="form-label">Title:</label>
+                <input type="text" class="form-control" id="edittitle" name="title" required>
+              </div>
+              <div class="mb-3">
+                <label for="description" class="form-label">Description:</label>
+                <textarea class="form-control" id="editdescription" name="editdescription" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="ingredients" class="form-label">Ingredients (format: name: quantity):</label>
+                <textarea class="form-control" id="editingredients" name="ingredients" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="steps" class="form-label">Steps (one per line):</label>
+                <textarea class="form-control" id="editsteps" name="steps" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="photo" class="form-label">Photo (URL):</label>
+                <input type="text" class="form-control" id="editphoto" name="photo" required>
+              </div>
+              <div class="mb-3">
+                <label for="cook_time" class="form-label">Cook time (Minutes):</label>
+                <input type="number" class="form-control" id="editcook_time" name="cook_time" required>
+              </div>
+              <div class="mb-3">
+                <label for="prep_time" class="form-label">Preparation Time (minutes):</label>
+                <input type="number" class="form-control" id="editprep_time" name="prep_time" required>
+              </div>
+              <div class="mb-3">
+                <label for="categorySelect" class="form-label">Categories:</label>
+                <div id="categoryDropdown" class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdownMenuButton"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Seleccionar Categorías
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="categoryDropdownMenuButton" id="categoryDropdownMenu">
+                    <!-- Aquí se agregarán las opciones de categorías -->
+                  </ul>
+                </div>
+              </div>
+              <div id="selectedCategorieshtml"></div>
+              <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <button onclick="goBack()" id="back-btn" class="back-link">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <div class="columns">
+      <div class="container middle-column" id="recipe">
+        <!-- Recipe Info -->
+      </div>
+    </div>
+  
+    
+  
+  
+  
+    <script src="./storerecipe.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

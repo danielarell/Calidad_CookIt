@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Log In Modal -->
+    <form action="" onsubmit="logIn()">
+      <div
+        class="modal fade"
+        id="Login_modal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="modalTitleId"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalTitleId">Log In</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <label for="login_e-mail" class="dp-none">Email</label>
+                <div class="input-group mb-3">
+                  <input
+                    id="login_e-mail"
+                    type="email"
+                    class="form-control"
+                    placeholder="Enter your E-mail"
+                    aria-label="E_mail"
+                    aria-describedby="basic-addon1"
+                    required
+                  />
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="bi bi-envelope"></i
+                  ></span>
+                </div>
+                <label for="passwd" class="dp-none">Password</label>
+                <div class="input-group mb-3">
+                  <input
+                    id="passwd"
+                    type="password"
+                    class="form-control"
+                    placeholder="Enter your password"
+                    aria-label="password"
+                    aria-describedby="basic-addon1"
+                    required
+                  />
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="bi bi-key fill"></i
+                  ></span>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Remember
+                  </label>
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Log In</button>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="text-center">
+                <p>
+                  Don't have an account?
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#SignUpM"
+                    >Sign Up here</a
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <script>
+      var modalId = document.getElementById("Login_modal");
+
+      modalId.addEventListener("show.bs.modal", function (event) {
+        // Button that triggered the modal
+        let button = event.relatedTarget;
+        // Extract info from data-bs-* attributes
+        let recipient = button.getAttribute("data-bs-whatever");
+
+        // Use above variables to manipulate the DOM
+      });
+    </script>
+
+    <!-- SignUp Modal -->
+    <form action="">
+      <div
+        class="modal fade"
+        id="SignUpM"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="modalTitleId"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalTitleId">Sign Up</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="input-group mb-3">
+                      <input
+                        type="text"
+                        class="form-control ml-3"
+                        placeholder="First Name"
+                        aria-label="First_name"
+                        aria-describedby="basic-addon1"
+                        required
+                        pattern="[a-zA-Z]*"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="input-group mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Last Name"
+                        aria-label="Last_name"
+                        aria-describedby="basic-addon1"
+                        pattern="[a-zA-Z]*"
+                        required
+                      />
+                    </div>
+                  </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <input
+                    id="e-mail"
+                    type="email"
+                    class="form-control"
+                    placeholder="Enter your E-mail"
+                    aria-label="E_mail"
+                    aria-describedby="basic-addon1"
+                    required
+                  />
+                </div>
+                <div class="input-group mb-3">
+                  <input
+                    type="password"
+                    class="form-control"
+                    placeholder="Password"
+                    aria-label="Password"
+                    aria-describedby="basic-addon1"
+                    required
+                  />
+                </div>
+                <div class="input-group mb-3">
+                  <input
+                    type="password"
+                    class="form-control"
+                    placeholder="Confirm Password"
+                    aria-label="Confirm_Password"
+                    aria-describedby="basic-addon1"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Sign Up</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    
+
+    
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+
+  <body>
+    <!-- navbar -->
+    <header>
+      <nav class="navbar navbar-expand-sm navbar-dark bg-dark" id="navbar">
+        <a class="navbar-brand" href="index.html"
+          ><img
+            src="https://i.pinimg.com/736x/57/fa/9a/57fa9aa16ae0a22bc2867f26bc5f4666.jpg"
+            alt=""
+            width="50"
+        /></a>
+        <button
+          class="navbar-toggler d-lg-none"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapsibleNavId"
+          aria-controls="collapsibleNavId"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          Menú
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+          <ul class="navbar-nav me-auto mt-0 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html" aria-current="page"
+                >Home <span class="visually-hidden">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="P01_about_us.html">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Products.html">Products</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="Categorias"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Categories</a
+              >
+              <div class="dropdown-menu" aria-labelledby="dropdownId">
+                <a class="dropdown-item" href="P01_cat_A.html">Videogames</a>
+                <a class="dropdown-item" href="P01_cat_B.html">Movies and Tv'shows</a>
+              </div>
+            </li>
+            <li>
+              <form class="d-flex my-lg-0">
+                <input
+                  id="search_input"
+                  class="form-control me-sm-2"
+                  type="text"
+                  placeholder="Search"
+                />
+              </form>
+            </li>
+           
+          </ul>
+          <a
+            href="#"
+            class="text-white text-decoration-none mx-2"
+            data-bs-toggle="modal"
+            data-bs-target="#Login_modal"
+            role="button"
+            ><i class="bi bi-person"></i>Login</a
+          >
+          <a href="P01_cart.html" class="text-white"><i class="bi bi-cart mx-4"></i></a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Carousel -->
+
+    <div
+      id="carouselExampleIndicators"
+      class="carousel slide"
+      data-bs-ride="carousel"
+    >
+      <div class="carousel-indicators">
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to="0"
+          class="active"
+          aria-current="true"
+          aria-label="Slide 1"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to="1"
+          aria-label="Slide 2"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to="2"
+          aria-label="Slide 3"
+        ></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img
+            src="https://blog.es.playstation.com/tachyon/sites/14/2023/12/f59997c224a5405ac61ddff9d4c79797d36c1613.jpg?resize=1088%2C612&crop_strategy=smart"
+            class="d-block w-100 img-fluid"
+            alt="First slide"
+          />
+        </div>
+        <div class="carousel-item">
+          <img
+            src="https://cdn1.epicgames.com/offer/24cc2629b0594bf29340f6acf9816af8/EGS_HorizonForbiddenWestCompleteEdition_GuerrillaGamesNixxesSoftware_S1_2560x1440-90cc343f3fcef2f750f13d8a2d84893b"
+            class="d-block w-100 img-fluid"
+            alt="Second slide"
+          />
+        </div>
+        <div class="carousel-item">
+          <img
+            src="https://image.api.playstation.com/vulcan/ap/rnd/202306/1219/e66c4ae18c5d8e3986a24599b293162a6f5c9eba22968d2c.jpg"
+            class="d-block w-100 img-fluid"
+            alt="Third slide"
+          />
+        </div>
+      </div>
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+   <main>
+      <div class="container">
+        <h2 class="mt-5">Products Section</h2>
+        
+       
+        <div
+          id="info" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 mt-3"
+        >
+          
+        </div>
+      </div>
+    </main>
+
+    
+  
+
+  
+
+    <!-- pagination -->
+
+    <nav
+      aria-label="Page navigation example"
+      class="justify-content-center d-flex"
+    >
+      <ul id="pagination" class="pagination">
+      </ul>
+    </nav>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="../js/recipes.js"></script>
+    <script src="../js/data_manager.js"></script>
+    
+  </body>
+</html>

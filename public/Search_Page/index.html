@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!------ Include the above in your HEAD tag ---------->
+    
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+        <link rel="stylesheet" href="./index.css">
+
+        <style>
+            .no-left-margin {
+                margin-left: 0;
+            }
+            .filter-top {
+                margin-bottom: 20px;
+            }
+        </style>
+</head>
+
+<body>
+    
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand" href="../index.html">COOK IT</a>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="../index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Search</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../recipes/recipes_page.html">Recipes</a>
+              </li>
+            </ul>
+            <form class="d-flex">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="../Login_SignUp_Page/index.html">Log In</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../profile_page/index.html">My Profile</a>
+                </li>
+              </ul>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <div class="row">
+            <!-- Left Sidebar (Filters) -->
+            <aside class="col-md-3">
+                <div class="filter-top">
+                    <button class="btn btn-primary mt-3" id="filterBtn">Apply Filters</button>
+                    <button class="btn btn-primary mt-3" id="resetfilters">Reset Filters</button>
+                </div>
+                <p>Custom</p>
+                <div class="card">
+
+                    <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Recipes </h6>
+                        </header>
+                        <div class="filter-content">
+                            <div class="card-body">
+                                <select class="form-select" id="Arrayselect">
+                                    <option selected value="0">Choose a array for filtering</option>
+                                    <option value="all">All Recipes</option>
+                                    <option value="mine">My Recipes</option>
+                                    <option value="favorites">My Favorites</option>
+                                </select>
+                            </div> <!-- card-body.// -->
+                        </div>
+                    </article> <!-- card-group-item.// -->
+                    <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Brands </h6>
+                        </header>
+                        <div class="filter-content">
+                            <div class="card-body">
+                                <select class="form-select" id="categorySelect">
+                                    <option selected value="0">Choose a Category</option>
+                                </select>
+                            </div> <!-- card-body.// -->
+                        </div>
+                    </article> <!-- card-group-item.// -->
+                    
+                </div> <!-- card.// -->
+
+                <h1>Text filters</h1>
+                <div class="card">
+                    <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">More Filters </h6>
+                        </header>
+                        <div class="filter-content">
+                            <div class="card-body">
+                                <label for="ingredients-input">Ingredients:</label>
+                                <input type="text" class="form-control" id="ingredients" placeholder="Enter ingredient...">
+                            </div> <!-- card-body.// -->
+                        </div>
+                    </article> <!-- card-group-item.// -->
+                    <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Recipe Name</h6>
+                        </header>
+                        <div class="filter-content">
+                            <div class="card-body">
+                                <label for="ingredients-input">Title:</label>
+                                <input type="text" class="form-control" id="title" placeholder="Enter recipe Title...">
+                            </div> <!-- card-body.// -->
+                        </div>
+                    </article> <!-- card-group-item.// -->
+                </div> <!-- card.// -->
+
+               <h1>Timings and Ratings </h1>
+                <div class="card">
+                    <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Prep Time range</h6>
+                        </header>
+                        <div class="filter-content">
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Min</label>
+                                        <input type="number" class="form-control" id="min_preptime" placeholder="0min">
+                                    </div>
+                                    <div class="form-group col-md-6 text-right">
+                                        <label>Max</label>
+                                        <input type="number" class="form-control" id="max_preptime" placeholder="10min">
+                                    </div>
+                                </div>
+                            </div> <!-- card-body.// -->
+                        </div>
+                    </article> <!-- card-group-item.// -->
+                    <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Cook Time range</h6>
+                        </header>
+                        <div class="filter-content">
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Min</label>
+                                        <input type="number" class="form-control" id="min_cooktime" placeholder="0min">
+                                    </div>
+                                    <div class="form-group col-md-6 text-right">
+                                        <label>Max</label>
+                                        <input type="number" class="form-control" id="max_cooktime" placeholder="10min">
+                                    </div>
+                                </div>
+                            </div> <!-- card-body.// -->
+                        </div>
+                    </article> <!-- card-group-item.// -->
+                    <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Step amount range</h6>
+                        </header>
+                        <div class="filter-content">
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Min</label>
+                                        <input type="number" class="form-control" id="minsteps" placeholder="1step">
+                                    </div>
+                                    <div class="form-group col-md-6 text-right">
+                                        <label>Max</label>
+                                        <input type="number" class="form-control" id="maxsteps" placeholder="10steps">
+                                    </div>
+                                </div>
+                            </div> <!-- card-body.// -->
+                        </div>
+                    </article> <!-- card-group-item.// -->
+                    <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Rating</h6>
+                        </header>
+                        <div class="filter-content">
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Min</label>
+                                        <input type="number" class="form-control" id="min_rating" placeholder="1star" min="0" max="5">
+                                    </div>
+                                    <div class="form-group col-md-6 text-right">
+                                        <label>Max</label>
+                                        <input type="number" class="form-control" id="max_rating" placeholder="5stars" min="1" max="5">
+                                    </div>                                    
+                                </div>
+                            </div> <!-- card-body.// -->
+                        </div>
+                    </article> <!-- card-group-item.// -->
+                </div> <!-- card.// -->
+            </aside>
+
+            <!-- Right Sidebar (Search Results) -->
+            <aside class="col-md-9">
+                <div class="container recipes py-5">
+                    <div class="text-center"><h1>Searching for something goood??</h1></div>
+                    <div class="row row-cols-1 row-cols-md-3 g-4 py-5" id="recipes_display">
+                      <!-- recipes_display_here -->
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <nav aria-label="Page navigation example" class="justify-content-center d-flex">
+                            <ul id="pagination" class="pagination">
+
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                
+            </aside>
+            
+        </div>
+    </div>
+    <!--container end.//-->
+
+    <br><br>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+
+    <script src="search.js"></script>
+</body>
+
+</html>
