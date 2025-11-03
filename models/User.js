@@ -1,5 +1,5 @@
-const {mongoose} = require("../DB/connectDB")
-const bcrypt = require("bcryptjs")
+const {mongoose} = require('../DB/connectDB');
+const bcrypt = require('bcryptjs');
 
 
 let userSchema = mongoose.Schema({
@@ -13,7 +13,7 @@ let userSchema = mongoose.Schema({
     },
     userPhoto: {
         type: String,
-        default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+        default: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
     },
     name:{
         type: String,
@@ -67,7 +67,7 @@ let userSchema = mongoose.Schema({
         ref: 'Recipe',
         default: []
     }]
-})
+});
 
 // eslint-disable-next-line no-unused-vars
 userSchema.statics.findUsers= async (filter, isAdmin = false, pageSize=4, pageNumber=1)=>{
@@ -80,7 +80,7 @@ userSchema.statics.findUsers= async (filter, isAdmin = false, pageSize=4, pageNu
             path: 'author',
             select: 'username' // Selecciona solo el nombre de usuario del autor de cada favorito
         }
-    })
+    });
     let count = User.find(filter).count();
 
     let resp = await Promise.all([docs, count]);
@@ -92,18 +92,18 @@ userSchema.statics.findUsers= async (filter, isAdmin = false, pageSize=4, pageNu
     
 
     return {users: resp[0], total: resp[1]};
-}
+};
 
 userSchema.statics.addrecipes = async (username, recipeId) => {
-    console.log("entro")
+    console.log('entro');
     let user = await User.findOne({username});
     if(user){
         user.myrecipes.push(recipeId);
         return await user.save();
     }
 
-    return {error: "User not found"};
-}
+    return {error: 'User not found'};
+};
 
 userSchema.statics.addMyReviews = async (_id, reviewId) => {
     let user = await User.findOne({_id});
@@ -113,23 +113,23 @@ userSchema.statics.addMyReviews = async (_id, reviewId) => {
         return await user.save();
     }
 
-    return {error: "User not found"};
-}
+    return {error: 'User not found'};
+};
 
 userSchema.statics.addFavorites = async (username, recipeId) => {
     let user = await User.findOne({username});
     if(user){
         // Verificar si la receta ya está en la lista de favoritos
         if(user.favorites.includes(recipeId)) {
-            return { error: "Recipe already exists in user's favorites" };
+            return { error: 'Recipe already exists in user\'s favorites' };
         } else {
             user.favorites.push(recipeId);
             return await user.save();
         }
     }
 
-    return {error: "User not found"};
-}
+    return {error: 'User not found'};
+};
 
 userSchema.statics.removeFavorites = async (username, recipeId) => {
     let user = await User.findOne({username});
@@ -145,12 +145,12 @@ userSchema.statics.removeFavorites = async (username, recipeId) => {
             await user.save(); // Guardar los cambios en la base de datos
             return { success: true };
         } else {
-            return { error: "Recipe not found in user's favorites" };
+            return { error: 'Recipe not found in user\'s favorites' };
         }
     }
 
-    return {error: "User not found"};
-}
+    return {error: 'User not found'};
+};
 
 userSchema.statics.removeMyRecipes = async (username, recipeId) => {
     let user = await User.findOne({username});
@@ -166,12 +166,12 @@ userSchema.statics.removeMyRecipes = async (username, recipeId) => {
             await user.save(); // Guardar los cambios en la base de datos
             return { success: true };
         } else {
-            return { error: "Recipe not found in user's favorites" };
+            return { error: 'Recipe not found in user\'s favorites' };
         }
     }
 
-    return {error: "User not found"};
-}
+    return {error: 'User not found'};
+};
 
 userSchema.statics.getFavorites = async (userId) => {
     try {
@@ -192,7 +192,7 @@ userSchema.statics.getFavorites = async (userId) => {
         console.error('Error al obtener recetas favoritas:', error);
         throw error;
     }
-}
+};
 
 userSchema.statics.addFriends = async (username, friendId) => {
     let user = await User.findOne({username});
@@ -202,13 +202,13 @@ userSchema.statics.addFriends = async (username, friendId) => {
         return await user.save();
     }
 
-    return {error: "user not found"};
-}
+    return {error: 'user not found'};
+};
 
 userSchema.statics.saveUser = async (userData)=>{
 
     try {
-        let hash = bcrypt.hashSync(userData.password, 10)
+        let hash = bcrypt.hashSync(userData.password, 10);
         userData.password = hash; 
         let newUser = User(userData);
         let doc =  await newUser.save();
@@ -217,12 +217,12 @@ userSchema.statics.saveUser = async (userData)=>{
     {
         return {error_mesg : error.errmsg};
     }
-}
+};
 
 userSchema.statics.findUser = async (username)=>{
     let user = await User.findOne({username});
     return user;
-}
+};
 
 userSchema.statics.findUserById = async (_id)=>{
     /*
@@ -230,39 +230,39 @@ userSchema.statics.findUserById = async (_id)=>{
     let user = await User.findById(_id).populate('myrecipes', 'title').populate('favorites', 'title');*/
     let user = await User.findById(_id);
     return user;
-}
+};
 
 userSchema.statics.updateUser = async (email, userData)=>{
     delete userData.email;
     if (userData.password){
-        let hash = bcrypt.hashSync(userData.password, 10)
+        let hash = bcrypt.hashSync(userData.password, 10);
         userData.password = hash; 
     }
     let updateUser = await User.findOneAndUpdate({email},
                                 {$set: userData},
                                 {new: true}
-                            )
+                            );
     return updateUser;
-}
+};
 
 userSchema.statics.deleteUser = async (username)=>{
-    let deletedUser = await User.findOneAndDelete({username})
+    let deletedUser = await User.findOneAndDelete({username});
     console.log(deletedUser);
     return deletedUser;
-}
+};
 
 userSchema.statics.authUser = async(email, password)=>{
-    let user = await User.findOne({email})
+    let user = await User.findOne({email});
 
     if(!user)
-        return null
+        return null;
 
     if (bcrypt.compareSync(password, user.password)){
-        return user
+        return user;
     }
 
-    return null
-}
+    return null;
+};
 
 let User = mongoose.model('User', userSchema);
 

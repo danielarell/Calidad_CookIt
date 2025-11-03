@@ -1,7 +1,10 @@
-const router = require("express").Router()
-const { fileURLToPath } = require("url");
-const recipes = require('../Data/recipesData.json')
-const {Recipe} = require('../models/Recipe.js')
+const router = require('express').Router();
+// eslint-disable-next-line no-unused-vars
+const { fileURLToPath } = require('url');
+// eslint-disable-next-line no-unused-vars
+const recipes = require('../Data/recipesData.json');
+const {Recipe} = require('../models/Recipe.js');
+// eslint-disable-next-line no-unused-vars
 const fs = require('fs');
 const {User} = require('../models/User.js');
 const auth = require('../middleware/auth.js');
@@ -9,7 +12,7 @@ const {Post} = require('../models/Message.js');
 
 
 router.get('/',  auth.addSkipLimittoGet(),async (req, res) => {
-    let filters = {}
+    let filters = {};
     let recipes = await Recipe.findRecipes(filters, 10, 1, req.skip, req.limit);
     res.json(recipes);
 });
@@ -71,10 +74,10 @@ router.get('/search', async (req, res) => {
 });
 
 router.get('/mine', auth.validateTokenWithCookie, async (req,res)=>{
-    console.log("owner", req.username, req._id);
-    const myrecipes =  await Recipe.getRecipes(req._id)
+    console.log('owner', req.username, req._id);
+    const myrecipes =  await Recipe.getRecipes(req._id);
     
-    res.send(myrecipes)
+    res.send(myrecipes);
 });
 
 router.get('/favorites', auth.validateTokenWithCookie, async (req,res)=>{
@@ -85,7 +88,7 @@ router.get('/favorites', auth.validateTokenWithCookie, async (req,res)=>{
 router.post('/favorites/:recipeId', auth.validateTokenWithCookie, async (req,res)=>{
     let recipe = await Recipe.findById(req.params.recipeId);
     if(!recipe){
-        res.status(404).send("Recipe doesnt exists");
+        res.status(404).send('Recipe doesnt exists');
         return;
     }
     let status = await User.addFavorites(req.username, req.params.recipeId);
@@ -95,7 +98,7 @@ router.post('/favorites/:recipeId', auth.validateTokenWithCookie, async (req,res
 router.delete('/favorites/:recipeId', auth.validateTokenWithCookie, async (req,res)=>{
     let recipe = await Recipe.findById(req.params.recipeId);
     if(!recipe){
-        res.status(404).send("Recipe doesnt exists");
+        res.status(404).send('Recipe doesnt exists');
         return;
     }
     let status = await User.removeFavorites(req.username, req.params.recipeId);
@@ -105,42 +108,44 @@ router.delete('/favorites/:recipeId', auth.validateTokenWithCookie, async (req,r
 router.get('/chat/:recipeId', async (req, res)=>{
     let chat = await Recipe.getChat(req.params.recipeId);
     res.send(chat);
-})
+});
 
 // Operación POST para crear una nueva receta
 router.post('/', auth.validateTokenWithCookie,async (req, res) => {
-    console.log(User)
+    console.log(User);
     console.log(req.body);
     let recipe = req.body;
+    // eslint-disable-next-line no-unused-vars
     let newRecipe = await Recipe.saveRecipe(req.username, req._id, recipe);
     res.send(recipe);
 });
 
 // Operación GET para obtener una receta por su ID
 router.get('/:recipeId', auth.validateTokenWithCookie, async (req, res) => {
-    let filters = {}
-    let recipe = await Recipe.findRecipe(req.params.recipeId)
+    // eslint-disable-next-line no-unused-vars
+    let filters = {};
+    let recipe = await Recipe.findRecipe(req.params.recipeId);
     if(!recipe){
-        res.status(404).send({error: "Recipe Not Found"})
+        res.status(404).send({error: 'Recipe Not Found'});
         return;
     }    
 
-    res.send(recipe)
+    res.send(recipe);
 });
 
 // Operación DELETE para eliminar una receta por su ID
 router.delete('/:recipeId',auth.validateTokenWithCookie ,async (req, res) => {
     const recipeId = req.params.recipeId;
-    let recipe = await Recipe.findRecipe(recipeId)
+    let recipe = await Recipe.findRecipe(recipeId);
     console.log(recipe);
     if(!recipe){
-        res.status(404).send({error: "Recipe Not Found"})
+        res.status(404).send({error: 'Recipe Not Found'});
         return;
     } 
 
     if(recipe.author._id != req._id){
-        res.status(403).send({error: "You dont have permissions"})
-        return
+        res.status(403).send({error: 'You dont have permissions'});
+        return;
     }
 
     let recipedeleted = await Recipe.deleteRecipe(recipeId);
@@ -155,28 +160,28 @@ router.put('/:recipeId', auth.validateTokenWithCookie, async (req, res) => {
     console.log(recipe.author._id.toString());
     if (!recipe){
         // return 404 not found 
-        res.status(404).send({error: 'Recipe not found'})
-        return
+        res.status(404).send({error: 'Recipe not found'});
+        return;
     }
 
     if(req._id != recipe.author._id.toString()){
-        res.status(403).send({error: 'You are not the owner'})
-        return
+        res.status(403).send({error: 'You are not the owner'});
+        return;
     }
 
     let updateRecipe = await Recipe.updateRecipe(recipe._id, req.body);
     //fs.writeFileSync('./data/usersdata.json', JSON.stringify(users) )
-    res.send(updateRecipe)
+    res.send(updateRecipe);
 });
 
 // Endpoint para añadir un mensaje al chat de una receta específica
 router.post('/:recipeId/chat',auth.validateTokenWithCookie,async (req, res) => {
     try {
-        const user = req.username
+        const user = req.username;
         const { content } = req.body;
         const recipeId = req.params.recipeId;
 
-        console.log(user)
+        console.log(user);
 
         //Verificar si la receta existe
         const recipe = await Recipe.findById(recipeId);

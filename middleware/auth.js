@@ -1,4 +1,4 @@
-const jwt = require ('jsonwebtoken')
+const jwt = require ('jsonwebtoken');
 
 function validateHeader(req,res,next)
 {
@@ -9,7 +9,7 @@ function validateHeader(req,res,next)
         req.auth = admin;
         next();
     }else{
-        req.auth = "Nuser"
+        req.auth = 'Nuser';
         next();
     }
 }
@@ -20,7 +20,7 @@ function validateUser(req, res, next)
 
     if(!header)
     {
-        res.status(403).send({error: "User required for this action"});
+        res.status(403).send({error: 'User required for this action'});
         return;
     }
 
@@ -48,54 +48,54 @@ function requireAdmin(req,res,next)
     if(req.token == pass)
     {
         req.admin = true;
-        next()
-        return
+        next();
+        return;
     }
 
-    res.status(401).send({error: "You are not admin"});
+    res.status(401).send({error: 'You are not admin'});
 }
 
 function validateToken(req, res, next){
-    let token = req.get('x-token')
+    let token = req.get('x-token');
 
     if(!token){
-        res.status(401).send({error: "token is missing"})
+        res.status(401).send({error: 'token is missing'});
         return;
     }
 
     jwt.verify(token, process.env.TOKEN_KEY, (err, decoded)=>{
         if(err){
-            res.status(401).send({error: err.message})
-            return
+            res.status(401).send({error: err.message});
+            return;
         }
 
         req.username= decoded.username;
         req._id = decoded._id;
-        next()
+        next();
 
-    })
+    });
 
 }
 
 function validateTokenWithCookie(req, res, next){
-    let token = req.cookies.access_token
+    let token = req.cookies.access_token;
 
     if(!token){
-        res.status(401).send({error: "token is missing"})
+        res.status(401).send({error: 'token is missing'});
         return;
     }
 
     jwt.verify(token, process.env.TOKEN_KEY, (err, decoded)=>{
         if(err){
-            res.status(401).send({error: err.message})
-            return
+            res.status(401).send({error: err.message});
+            return;
         }
 
         req.username= decoded.username;
         req._id = decoded._id;
-        next()
+        next();
 
-    })
+    });
 
 }
 
@@ -109,4 +109,4 @@ const addSkipLimittoGet = () => {
 };
 
 
-module.exports = {validateHeader, validateAdmin, requireAdmin, validateUser, validateToken, addSkipLimittoGet, validateTokenWithCookie}
+module.exports = {validateHeader, validateAdmin, requireAdmin, validateUser, validateToken, addSkipLimittoGet, validateTokenWithCookie};
