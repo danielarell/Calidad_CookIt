@@ -1,33 +1,33 @@
+
+
 // Array de ingredientes
-const ingredientesDisponibles = ["Pollo", "Carne", "Pescado", "Arroz", "Frijoles", "Verduras", "Papas"];
+const ingredientesDisponibles = ['Pollo', 'Carne', 'Pescado', 'Arroz', 'Frijoles', 'Verduras', 'Papas'];
 
 // Función para generar opciones del menú desplegable de ingredientes
 function generarOpcionesIngredientes() {
-    const ingredientesDropdown = document.getElementById("ingredientesDropdown");
-    ingredientesDropdown.innerHTML = "<option value=''>Choose an ingredient</option>";
+    const ingredientesDropdown = document.getElementById('ingredientesDropdown');
+    ingredientesDropdown.innerHTML = '<option value=\'\'>Choose an ingredient</option>';
 
     ingredientesDisponibles.forEach(function(ingrediente) {
-        const option = document.createElement("option");
+        const option = document.createElement('option');
         option.value = ingrediente;
         option.textContent = ingrediente;
         ingredientesDropdown.appendChild(option);
     });
 }
 
-function addingredient_tolist()
-{
-    const ingredient = document.getElementById("");
-}
+
 
 // Función para agregar ingrediente al contenedor
+// eslint-disable-next-line no-unused-vars
 function agregarIngrediente() {
-    const ingredientesDropdown = document.getElementById("ingredientesDropdown");
+    const ingredientesDropdown = document.getElementById('ingredientesDropdown');
     const selectedIngredient = ingredientesDropdown.value;
 
     if (selectedIngredient) {
-        const ingredientesContainer = document.getElementById("ingredientesContainer");
+        const ingredientesContainer = document.getElementById('ingredientesContainer');
 
-        const ingredienteDiv = document.createElement("div");
+        const ingredienteDiv = document.createElement('div');
         ingredienteDiv.innerHTML = `
             <span>${selectedIngredient}</span>
             <button class="btn btn-danger" onclick="eliminarIngrediente(this)"><i class="bi bi-trash3-fill"></i></button>
@@ -35,11 +35,12 @@ function agregarIngrediente() {
         `;
         ingredientesContainer.appendChild(ingredienteDiv);
     } else {
-        alert("Por favor seleccione un ingrediente");
+        window.alert('Por favor seleccione un ingrediente');
     }
 }
 
 // Función para eliminar ingredientes
+// eslint-disable-next-line no-unused-vars
 function eliminarIngrediente(btn) {
     btn.parentNode.remove();
 }
@@ -48,16 +49,16 @@ function eliminarIngrediente(btn) {
 generarOpcionesIngredientes();
 
 // Manejo del formulario
-document.getElementById("recipeForm").addEventListener("submit", function(event) {
+document.getElementById('recipeForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    const titulo = document.getElementById("titulo").value;
-    const descripcion = document.getElementById("descripcion").value;
-    const duracion = parseInt(document.getElementById("duracion").value);
+    const titulo = document.getElementById('titulo').value;
+    const descripcion = document.getElementById('descripcion').value;
+    const duracion = parseInt(document.getElementById('duracion').value);
     //const autor = document.getElementById("autor").value;
-    const pasos = document.getElementById("pasos").value.split("\n");
+    const pasos = document.getElementById('pasos').value.split('\n');
     const ingredientes = [];
-    const ingredientesInputs = document.getElementsByName("ingredientes[]");
+    const ingredientesInputs = document.getElementsByName('ingredientes[]');
 
     for (let i = 0; i < ingredientesInputs.length; i++) {
         ingredientes.push(ingredientesInputs[i].value);
@@ -77,5 +78,5 @@ document.getElementById("recipeForm").addEventListener("submit", function(event)
     };
 
     
-    console.log("Receta guardada:", receta);
+    console.log('Receta guardada:', receta);
 });

@@ -1,8 +1,8 @@
-const {mongoose} = require("../DB/connectDB")
-const {Post} = require('./Message')
-const {User} = require('./User')
+const {mongoose} = require('../DB/connectDB');
+const {Post} = require('./Message');
+const {User} = require('./User');
 //const {Category} = require('./Category')
-const {nanoid} = require('nanoid')
+const {nanoid} = require('nanoid');
 
 let recipeSchema = mongoose.Schema({
     uid: {
@@ -67,7 +67,7 @@ let recipeSchema = mongoose.Schema({
         ref: 'Message',
         default: []
     }]
-})
+});
 
 // eslint-disable-next-line no-unused-vars
 recipeSchema.statics.findRecipes = async (filter, _pageSize = 10, _pageNumber = 1, skip = 0, limit = 0) => {
@@ -77,36 +77,36 @@ recipeSchema.statics.findRecipes = async (filter, _pageSize = 10, _pageNumber = 
     
     for (const key in filter) {
         if (key === 'title' || key === 'description') {
-            console.log({key: key, valor: filter[key]})
+            console.log({key: key, valor: filter[key]});
             regexFilter[key] = { $regex: filter[key], $options: 'i' };
         }
 
         if(Object.prototype.hasOwnProperty.call(filter, key) && (key == 'cook_time' || key == 'prep_time')){
-            regexFilter[key] = filter[key]
+            regexFilter[key] = filter[key];
         }
 
         if(Object.prototype.hasOwnProperty.call(filter, key) && (key == 'cook_time_gt' || key == 'prep_time_gt')){
             cadena = key.slice(0, -3);
-            regexFilter[cadena] = filter[key]
+            regexFilter[cadena] = filter[key];
         }
 
         if(Object.prototype.hasOwnProperty.call(filter, key) && (key == 'cook_time_lt' || key == 'prep_time_lt')){
             cadena = key.slice(0, -3);
-            regexFilter[cadena] = filter[key]
+            regexFilter[cadena] = filter[key];
         }
 
         if(Object.prototype.hasOwnProperty.call(filter, key) && (key == 'cook_time_gte' || key == 'prep_time_gte')){
             cadena = key.slice(0, -4);
-            regexFilter[cadena] = filter[key]
+            regexFilter[cadena] = filter[key];
         }
 
         if(Object.prototype.hasOwnProperty.call(filter, key) && (key == 'cook_time_lte' || key == 'prep_time_lte')){
             cadena = key.slice(0, -4);
-            regexFilter[cadena] = filter[key]
+            regexFilter[cadena] = filter[key];
         }
     }
 
-    console.log(regexFilter)
+    console.log(regexFilter);
 
     let docs = Recipe.find(regexFilter, proj).skip(skip).limit(limit).sort({ creation_date: 1 }).populate('author', 'username userPhoto').populate('categories', 'name').populate('chat', 'user content');
     let count = Recipe.find(regexFilter).count();
@@ -138,14 +138,14 @@ recipeSchema.statics.findRecipes = async (filter, _pageSize = 10, _pageNumber = 
 
     if(filter.author){
         resp[0] = resp[0].filter(obj => {
-            return obj.author.username.includes(filter.author)
-        })
+            return obj.author.username.includes(filter.author);
+        });
     }
 
     if(filter.steps){
         resp[0] = resp[0].filter(obj => {
-            return obj.steps.length == filter.steps
-        })
+            return obj.steps.length == filter.steps;
+        });
     }
 
     console.log({ user: User });
@@ -162,7 +162,7 @@ recipeSchema.statics.getRecipes = async (_id)=>{
         console.error('Error al obtener recetas:', error);
         throw error;
     }
-}
+};
 
 recipeSchema.statics.removeReviews = async (reviewId, recipeId) => {
     let recipe = await Recipe.findById(recipeId);
@@ -178,12 +178,12 @@ recipeSchema.statics.removeReviews = async (reviewId, recipeId) => {
             await recipe.save(); // Guardar los cambios en la base de datos
             return { success: true };
         } else {
-            return { error: "review not found in recipe's reviews" };
+            return { error: 'review not found in recipe\'s reviews' };
         }
     }
 
-    return {error: "recipe not found"};
-}
+    return {error: 'recipe not found'};
+};
 
 recipeSchema.statics.removeMessage = async (messageId, recipeId) => {
     let recipe = await Recipe.findById(recipeId);
@@ -199,12 +199,12 @@ recipeSchema.statics.removeMessage = async (messageId, recipeId) => {
             await recipe.save(); // Guardar los cambios en la base de datos
             return { success: true };
         } else {
-            return { error: "Message not found in recipe's chat" };
+            return { error: 'Message not found in recipe\'s chat' };
         }
     }
 
-    return {error: "recipe not found"};
-}
+    return {error: 'recipe not found'};
+};
 
 recipeSchema.statics.getChat = async (recipeId) => {
     try {
@@ -223,7 +223,7 @@ recipeSchema.statics.getChat = async (recipeId) => {
         console.error('Error al obtener mensajes:', error);
         throw error;
     }
-}
+};
 
 recipeSchema.statics.addMessages = async (recipeId, messageId) => {
     let recipe = await Recipe.findById(recipeId);
@@ -232,8 +232,8 @@ recipeSchema.statics.addMessages = async (recipeId, messageId) => {
         return await recipe.save();
     }
 
-    return {error: "Recipe not found"};
-}
+    return {error: 'Recipe not found'};
+};
 
 recipeSchema.statics.deleteMessages = async (recipeId, messageId) => {
     let recipe = await Recipe.findById(recipeId);
@@ -242,8 +242,8 @@ recipeSchema.statics.deleteMessages = async (recipeId, messageId) => {
         return await recipe.save();
     }
 
-    return {error: "Recipe not found"};
-}
+    return {error: 'Recipe not found'};
+};
 
 recipeSchema.statics.addReviews = async (recipeId, reviewId) => {
     let recipe = await Recipe.findById(recipeId);
@@ -252,8 +252,8 @@ recipeSchema.statics.addReviews = async (recipeId, reviewId) => {
         return await recipe.save();
     }
 
-    return {error: "Recipe not found"};
-}
+    return {error: 'Recipe not found'};
+};
 
 recipeSchema.statics.saveRecipe = async (username, _id, recipeData)=>{
 
@@ -275,7 +275,7 @@ recipeSchema.statics.saveRecipe = async (username, _id, recipeData)=>{
     await User.addrecipes(username, doc._id);
     return doc;
 
-}
+};
 
 recipeSchema.statics.findRecipe = async (_id) => {
     try {
@@ -297,7 +297,7 @@ recipeSchema.statics.findRecipe = async (_id) => {
         console.error('Error al encontrar la receta:', error);
         // Manejar el error adecuadamente
     }
-}
+};
 
 recipeSchema.statics.updateRecipe = async (_id, recipeData)=>{
     delete recipeData.rating;
@@ -305,35 +305,35 @@ recipeSchema.statics.updateRecipe = async (_id, recipeData)=>{
     let updateRecipe = await Recipe.findOneAndUpdate({_id},
                                 {$set: recipeData},
                                 {new: true}
-                            )
+                            );
     return updateRecipe;
-}
+};
 
 recipeSchema.statics.deleteRecipe = async (_id)=>{
-    let deletedRecipe = await Recipe.findOneAndDelete({_id})
+    let deletedRecipe = await Recipe.findOneAndDelete({_id});
     console.log(deletedRecipe);
     return deletedRecipe;
-}
+};
 
 recipeSchema.statics.calculateRating = async (_id)=>{
     let recipe_to_calculate = await Recipe.findRecipe(_id);
     let total = 0;
     
-    console.log(recipe_to_calculate)
-    let len = recipe_to_calculate.reviews.length
+    console.log(recipe_to_calculate);
+    let len = recipe_to_calculate.reviews.length;
     recipe_to_calculate.reviews.forEach(review => {
-        total += review.rating
-    })
+        total += review.rating;
+    });
 
     if (len == 0)
         recipe_to_calculate.rating = 0;
     else
         recipe_to_calculate.rating = total/len;
 
-    console.log({valor: recipe_to_calculate.rating })
-    await recipe_to_calculate.save()
-    return recipe_to_calculate
-}
+    console.log({valor: recipe_to_calculate.rating });
+    await recipe_to_calculate.save();
+    return recipe_to_calculate;
+};
 
 let Recipe = mongoose.model('Recipe', recipeSchema);
 

@@ -1,5 +1,5 @@
-const {mongoose} = require("../DB/connectDB")
-const {Recipe} = require("../models/Recipe.js")
+const {mongoose} = require('../DB/connectDB');
+const {Recipe} = require('../models/Recipe.js');
 
 
 let reviewSchema = mongoose.Schema({
@@ -22,7 +22,7 @@ let reviewSchema = mongoose.Schema({
         default: 0,
         required: true
     }
-})
+});
 
 reviewSchema.statics.saveReview = async (_id,reviewData, recipeId)=>{
     reviewData.author = _id;
@@ -43,14 +43,14 @@ reviewSchema.statics.saveReview = async (_id,reviewData, recipeId)=>{
     await Recipe.calculateRating(recipeId);
     return doc;
 
-}
+};
 
 // eslint-disable-next-line no-unused-vars
 reviewSchema.statics.deleteReview = async (_id, recipeId)=>{
-    let deletedReview = await Review.findOneAndDelete({_id})
+    let deletedReview = await Review.findOneAndDelete({_id});
     console.log(deletedReview);
     return deletedReview;
-}
+};
 
 let Review = mongoose.model('Review', reviewSchema);
 

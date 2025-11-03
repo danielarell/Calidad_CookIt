@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 //const {User} = require("./User");
-const {Recipe} = require('./Recipe')
+const {Recipe} = require('./Recipe');
 
 // Schema para los mensajes del chat
 let messageSchema = new mongoose.Schema({
@@ -29,14 +29,14 @@ messageSchema.statics.saveMessage = async (username, recipeId, messageData)=>{
     await Recipe.addMessages(recipeId, doc._id);
     return doc;
 
-}
+};
 
 messageSchema.statics.deleteMessage = async (_id, recipeId)=>{
-   let deletedMessage = await Post.findOneAndDelete({_id})
-   console.log(recipeId)
+   let deletedMessage = await Post.findOneAndDelete({_id});
+   console.log(recipeId);
    console.log(deletedMessage);
    return deletedMessage;
-}
+};
 
 
 

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 let user;
 
 async function showUserData(section) {
@@ -33,7 +34,7 @@ async function showUserData(section) {
                 const newBio = document.getElementById('bioInput').value;
                         
                 try {
-                    const resp = await fetch(`/api/users/update`, {
+                    const resp = await fetch('/api/users/update', {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
@@ -101,7 +102,7 @@ async function showUserData(section) {
                 const newPhone = document.getElementById('phoneInput').value;
         
                 try {
-                    const resp = await fetch(`/api/users/update`, {
+                    const resp = await fetch('/api/users/update', {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
@@ -131,9 +132,9 @@ async function showUserData(section) {
             });
         
             document.getElementById('cancelBtnPersonal').addEventListener('click', () => {
-                document.getElementById('birthday').textContent = originalBirthday
-                document.getElementById('country').textContent = originalCountry
-                document.getElementById('phone').textContent = originalPhone
+                document.getElementById('birthday').textContent = originalBirthday;
+                document.getElementById('country').textContent = originalCountry;
+                document.getElementById('phone').textContent = originalPhone;
 
                 document.getElementById('editBtnPersonal').classList.remove('d-none');
                 document.getElementById('saveBtnPersonal').classList.add('d-none');
@@ -141,7 +142,7 @@ async function showUserData(section) {
             });
         }
         let html = renderSubs(data);
-        render(html, "subs")
+        render(html, 'subs');
     } catch (error) {
         console.error('Error obtaining user data:', error);
     }
@@ -171,7 +172,7 @@ async function changePassword() {
             })
         });
 
-        console.log({resp: resp})
+        console.log({resp: resp});
 
         if (resp.ok) {
             console.log('Password changed successfully');
@@ -196,8 +197,9 @@ function renderSubs(user){
     if (user.reviewsubscriptions.length == 0){
         subHtml += `<div class="edit button float-right">
                         <p>You havent subscribe to anyone :P</p>
-                    </div>`
+                    </div>`;
     }
+    // eslint-disable-next-line no-unused-vars
     user.reviewsubscriptions.forEach((sub,index)=>{
         
         subHtml += `<div class="container">  
@@ -218,9 +220,9 @@ function renderSubs(user){
                     </div>   
                 </div>
             </div>
-        </div>`
+        </div>`;
 
-    })
+    });
     return subHtml;
 }
 
@@ -228,6 +230,7 @@ function render(html, elementId){
     document.querySelector(`#${elementId}`).innerHTML = html;
 }
 
+// eslint-disable-next-line no-unused-vars
 async function del_sub(id){
 
     // Checar si ha excrito algo
@@ -235,10 +238,10 @@ async function del_sub(id){
 
         let resp = await fetch('/api/users/' + id + '/reviews/subscribe', {
             method: 'DELETE',
-        })
+        });
 
         console.log(resp.status);
        
-        location.reload()   
+        location.reload();
     } 
 }

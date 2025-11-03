@@ -1,14 +1,17 @@
-const router = require("express").Router()
-const { fileURLToPath } = require("url");
-const recipes = require('../Data/recipesData.json')
+const router = require('express').Router();
+// eslint-disable-next-line no-unused-vars
+const { fileURLToPath } = require('url');
+const recipes = require('../Data/recipesData.json');
+// eslint-disable-next-line no-unused-vars
 const fs = require('fs');
 const auth = require('../middleware/auth.js');
 const {Review} = require('../models/Review.js');
-const { Recipe } = require("../models/Recipe.js");
+const { Recipe } = require('../models/Recipe.js');
 
 router.get('/', auth.validateTokenWithCookie ,async (req, res)=> {
-    let filters = {}
-    console.log(req.admin)
+    let filters = {};
+    console.log(req.admin);
+    // eslint-disable-next-line no-unused-vars
     let reviews = await Review.findReviews(filters, req.admin, 5,1);
     res.json(recipes);
 });
@@ -24,13 +27,13 @@ router.delete('/:recipeId/:reviewId', auth.validateTokenWithCookie, async (req, 
     const reviewid = req.params.reviewId;
     let review = await Review.findById(reviewid);
     if(!review){
-        res.status(404).send({error: "Review Not Found"})
+        res.status(404).send({error: 'Review Not Found'});
         return;
     } 
 
     if(review.author._id != req._id){
-        res.status(403).send({error: "You dont have permissions"})
-        return
+        res.status(403).send({error: 'You dont have permissions'});
+        return;
     }
 
     await Recipe.removeReviews(reviewid, req.params.recipeId);
@@ -39,4 +42,4 @@ router.delete('/:recipeId/:reviewId', auth.validateTokenWithCookie, async (req, 
     res.send(reviewdeleted);
 });
 
-module.exports = router
+module.exports = router;

@@ -6,15 +6,15 @@ let recipeId;
 // Función para obtener el parámetro de la URL por su nombre
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
         results = regex.exec(url);
     if (!results) return null;
     if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', function() {
     // Obtener el ID de la receta de la URL
     recipeId = getParameterByName('id');
     loadRecipe(recipeId);
@@ -28,10 +28,10 @@ async function loadCategories()
         headers: {
             'x-auth': 23423
         }
-    })
+    });
 
     console.log(resp.status);
-    let data = await resp.json()
+    let data = await resp.json();
 
     console.log(data);
     
@@ -39,17 +39,17 @@ async function loadCategories()
 
     console.log(categories);
 
-    renderCategoryDropdown()
+    renderCategoryDropdown();
 }
 
 async function loadRecipe(recipeId)
 {
     let resp = await fetch('/api/recipes/'+recipeId,{
         method :'GET'
-    })
+    });
 
     console.log(resp.status);
-    let data = await resp.json()
+    let data = await resp.json();
 
     receta = data;
 
@@ -57,23 +57,27 @@ async function loadRecipe(recipeId)
 
     let respuser = await fetch('/api/users/search/me',{
         method :'GET'
-    })
+    });
 
     console.log(respuser.status);
-    user = await respuser.json()
+    user = await respuser.json();
 
     let html = renderRecipe(data, user);
-    render(html, "recipe");
+    render(html, 'recipe');
 }
 
 // Cosas del chat:
 // Obtener referencias a elementos del DOM
+// eslint-disable-next-line no-unused-vars
 const messageForm = document.getElementById('message-form');
+// eslint-disable-next-line no-unused-vars
 const messageInput = document.getElementById('message-input');
+// eslint-disable-next-line no-unused-vars
 const chatMessages = document.getElementById('chat-messages');
 
 
 // Función para agregar un mensaje al chat
+// eslint-disable-next-line no-unused-vars
 async function addMessageToChat() {
     // const messageElement = document.createElement('div');
     const newMessage = document.getElementById('message-input');
@@ -82,7 +86,7 @@ async function addMessageToChat() {
     if (newMessage != '') {
         // Get the value of the input field
         const content = {content: newMessage.value};
-        console.log("message: " + content);
+        console.log('message: ' + content);
         // Reset the input field after retrieving the value (if needed)
         newMessage.value = '';
 
@@ -92,20 +96,22 @@ async function addMessageToChat() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(content)
-        })
+        });
         console.log(resp.status);
-        let data = await resp.json()
+        // eslint-disable-next-line no-unused-vars
+        let data = await resp.json();
        
         
     } else {
-        console.error("Element with id 'content' not found.");
+        console.error('Element with id \'content\' not found.');
 
         
     }
-    location.reload()    
+    location.reload(); 
 }
 
 //Funcion para postear una review
+// eslint-disable-next-line no-unused-vars
 async function addReview() {
     const review = document.getElementById('new-review');
     const rating = document.getElementById('new-rating');
@@ -114,7 +120,7 @@ async function addReview() {
     if (review != '' && rating != '' && rating.value <= 5 && rating.value >= 0) {
         // Get the value of the input field
         const content = {comment: review.value, rating: rating.value};
-        console.log("review: " + content);
+        console.log('review: ' + content);
         
         review.value = '';
         rating.value = '';
@@ -125,32 +131,34 @@ async function addReview() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(content)
-        })
+        });
         console.log(resp.status);
-        let data = await resp.json()
+        //let data = await resp.json();
        
-        location.reload()   
+        location.reload();
         
     } 
     
 }
 
+// eslint-disable-next-line no-unused-vars
 async function del_review(id){
     // Checar si ha excrito algo
     if (id != '') {        
 
         let resp = await fetch('/api/reviews/' + recipeId +'/' + id, {
             method: 'DELETE',
-        })
+        });
 
         console.log(resp.status);
-        let data = await resp.json()
+        //let data = await resp.json();
        
-        location.reload()   
+        location.reload();
         
     } 
 }
 
+// eslint-disable-next-line no-unused-vars
 async function sub(id){
 
     // Checar si ha excrito algo
@@ -158,31 +166,33 @@ async function sub(id){
 
         let resp = await fetch('/api/users/' + id + '/reviews/subscribe', {
             method: 'POST',
-        })
+        });
 
         console.log(resp.status);
        
-        location.reload()   
+        location.reload();  
     } 
 }
 
+// eslint-disable-next-line no-unused-vars
 async function del_message(id){
     if (id != '') {        
 
         let resp = await fetch('/api/messages/' + recipeId +'/' + id, {
             method: 'DELETE',
-        })
+        });
 
         console.log(resp.status);
-        let data = await resp.json()
+        //let data = await resp.json()
        
-        location.reload()   
+        location.reload();
     } 
 }
 
 function renderRecipe(obj, user){
 
     let ingredientsHtml = '';
+    // eslint-disable-next-line no-unused-vars
     obj.ingredients.forEach((ingredient, index) => {
         ingredientsHtml += `<li><p><span>${ingredient.name}</span>: ${ingredient.quantity}</p></li>`;
     });
@@ -197,18 +207,19 @@ function renderRecipe(obj, user){
 
     let reviewHtml = '';
     
+    // eslint-disable-next-line no-unused-vars
     obj.reviews.forEach((review,index)=>{
         let delButton = '';
         if(review.author.username == user.username){
             delButton += `<div class="edit button">
                                 <button class="btn btn-danger btn-sm fixed-button" onclick="del_review('${review._id}')"> <i class="bi bi-trash3-fill"></i> </button>
-                            </div>`
+                            </div>`;
         }
 
         
         let subButton = '';
-        console.log({susbs: user.reviewsubscriptions})
-        console.log(review.author._id.toString())
+        console.log({susbs: user.reviewsubscriptions});
+        console.log(review.author._id.toString());
         const isSubscribed = user.reviewsubscriptions.some(subs => subs === review.author._id.toString() );
         console.log(isSubscribed);
         if (!isSubscribed && review.author.username != user.username) {
@@ -252,7 +263,8 @@ function renderRecipe(obj, user){
     });
     
     let chatRecipe = '';
-    let delButtonChat = '';
+    //let delButtonChat = '';
+    // eslint-disable-next-line no-unused-vars
     obj.chat.forEach((messa, index) => {
         // Convert timestamp to a Date object
         const dateObj = new Date(messa.timestamp);
@@ -301,15 +313,16 @@ function renderRecipe(obj, user){
                                 <button class="btn btn-dark btn-lg fixed-button"
                                 data-bs-toggle="modal"
                                 data-bs-target="#recipeModal" onclick="render_to_edit()"> EDIT </button>
-                              </div>`
+                              </div>`;
     }
 
+    // eslint-disable-next-line no-unused-vars
     let deletebutton_ifuser = '';
     if(user.username == obj.author.username){
         editbutton_ifuser += `<div class="edit button">
                                 <button class="btn btn-danger btn-lg fixed-button"
                                  onclick="Deleterecipe()"> Delete </button>
-                              </div>`
+                              </div>`;
     }
 
     let html = `
@@ -396,48 +409,50 @@ function render(html, elementId){
     document.querySelector(`#${elementId}`).innerHTML = html;
 }
 
+// eslint-disable-next-line no-unused-vars
 function goBack() {
     window.history.back();
 }
 
 let selectedCategories = [];
 
+// eslint-disable-next-line no-unused-vars
 function render_to_edit()
 {
-    document.getElementById("edittitle").value = receta.title;
-    document.getElementById("editdescription").value = receta.description;
+    document.getElementById('edittitle').value = receta.title;
+    document.getElementById('editdescription').value = receta.description;
     var ingredientesTexto = receta.ingredients.map(function(ingrediente) {
-        return ingrediente.name + ": " + ingrediente.quantity;
-    }).join("\n");
-    document.getElementById("editingredients").value = ingredientesTexto;
-    var pasosTexto = receta.steps.join("\n");
-    document.getElementById("editsteps").value = pasosTexto;
-    document.getElementById("editphoto").value = receta.photo;
-    document.getElementById("editcook_time").value = receta.cook_time;
-    document.getElementById("editprep_time").value = receta.prep_time;
+        return ingrediente.name + ': ' + ingrediente.quantity;
+    }).join('\n');
+    document.getElementById('editingredients').value = ingredientesTexto;
+    var pasosTexto = receta.steps.join('\n');
+    document.getElementById('editsteps').value = pasosTexto;
+    document.getElementById('editphoto').value = receta.photo;
+    document.getElementById('editcook_time').value = receta.cook_time;
+    document.getElementById('editprep_time').value = receta.prep_time;
     receta.categories.forEach(function(categoria) {
         selectedCategories.push(categoria);
       });
-    renderSelectedCategories()
+    renderSelectedCategories();
 
 }
 
 function renderCategoryDropdown() {
-    var categoryDropdownMenu = document.getElementById("categoryDropdownMenu");
-    categoryDropdownMenu.innerHTML = ""; // Limpiar el dropdown antes de renderizar las categorías
+    var categoryDropdownMenu = document.getElementById('categoryDropdownMenu');
+    categoryDropdownMenu.innerHTML = ''; // Limpiar el dropdown antes de renderizar las categorías
 
     categories.forEach(function(category) {
-        var option = document.createElement("li");
-        option.classList.add("dropdown-item");
+        var option = document.createElement('li');
+        option.classList.add('dropdown-item');
         option.innerHTML = category.name;
-        option.setAttribute("data-id", category._id);
+        option.setAttribute('data-id', category._id);
         categoryDropdownMenu.appendChild(option);
     });
 }
 // Manejar clic en una categoría desde el menú desplegable
-document.getElementById("categoryDropdownMenu").addEventListener("click", function(event) {
-    if (event.target.classList.contains("dropdown-item")) {
-        var categoryId = event.target.getAttribute("data-id");
+document.getElementById('categoryDropdownMenu').addEventListener('click', function(event) {
+    if (event.target.classList.contains('dropdown-item')) {
+        var categoryId = event.target.getAttribute('data-id');
         var categoryName = event.target.innerHTML;
         addCategory(categoryId, categoryName);
     }
@@ -457,18 +472,18 @@ function addCategory(id, name) {
         renderSelectedCategories();
 
         // Limpiar dropdown
-        document.getElementById("categoryDropdownMenuButton").innerHTML = "Seleccionar Categorías";
+        document.getElementById('categoryDropdownMenuButton').innerHTML = 'Seleccionar Categorías';
     }
 }
 
 // Renderizar las categorías seleccionadas
 function renderSelectedCategories(categoriesin = selectedCategories ) {
-    var selectedCategoriesContainer = document.getElementById("selectedCategorieshtml");
-    selectedCategoriesContainer.innerHTML = "";
+    var selectedCategoriesContainer = document.getElementById('selectedCategorieshtml');
+    selectedCategoriesContainer.innerHTML = '';
 
     categoriesin.forEach(function(category) {
-        var selectedCategory = document.createElement("div");
-        selectedCategory.classList.add("alert", "alert-primary", "alert-dismissible", "fade", "show");
+        var selectedCategory = document.createElement('div');
+        selectedCategory.classList.add('alert', 'alert-primary', 'alert-dismissible', 'fade', 'show');
         selectedCategory.innerHTML = `
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="removeCategory(${category.id})"></button>
             ${category.name}
@@ -480,47 +495,50 @@ function renderSelectedCategories(categoriesin = selectedCategories ) {
 }
 
 // Eliminar categoría seleccionada
+// eslint-disable-next-line no-unused-vars
 function removeCategory(id) {
     var index = selectedCategories.findIndex(obj => obj._id === id);
     if (index !== -1) {
         selectedCategories.splice(index, 1); 
     }
 
-    renderSelectedCategories()
+    renderSelectedCategories();
 }
 
+// eslint-disable-next-line no-unused-vars
 async function Deleterecipe()
 {
     console.log(recipeId);
 
     Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
     }).then(async (result) => {
     if (result.isConfirmed) {
         Swal.fire({
-        title: "Deleted!",
-        text: "Your file has been deleted.",
-        icon: "success"
+        title: 'Deleted!',
+        text: 'Your file has been deleted.',
+        icon: 'success'
         });
+        // eslint-disable-next-line no-unused-vars
         let resp = await fetch('/api/recipes/' + recipeId,{
             method :'DELETE'
-        })
+        });
     
         location.reload();
-        window.location.href = "./recipes_page.html";
+        window.location.href = './recipes_page.html';
     }
     });
 
 }
 
 // Manejar el envío del formulario
-recipeForm.addEventListener("submit", async function(event) {
+recipeForm.addEventListener('submit', async function(event) {
     event.preventDefault(); // Evitar que el formulario se envíe por defecto
 
     // Obtener los datos del formulario
@@ -549,7 +567,7 @@ recipeForm.addEventListener("submit", async function(event) {
     });
 
     // Enviar los datos a la API o realizar otras acciones según sea necesario
-    console.log("Datos de la receta:", recipeData);
+    console.log('Datos de la receta:', recipeData);
 
     let resp = await fetch('/api/recipes/' + recipeId,{
         method :'PUT',
@@ -557,28 +575,28 @@ recipeForm.addEventListener("submit", async function(event) {
             'content-type': 'Application/json'
         },
         body: JSON.stringify(recipeData)
-    })
+    });
 
     console.log(resp.status);
-    let data = await resp.json()
+    let data = await resp.json();
     //console.log(data);
 
    if(data.error)
    {
-        Swal.fire("Error", data.error , "error");
+        Swal.fire('Error', data.error , 'error');
         return;
    }else{
         Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "The Recipe has been saved",
+            position: 'top-end',
+            icon: 'success',
+            title: 'The Recipe has been saved',
             showConfirmButton: false,
             timer: 1500
         });
    }
 
     // Cerrar el modal
-    var modal = bootstrap.Modal.getInstance(document.getElementById("recipeModal"));
+    var modal = bootstrap.Modal.getInstance(document.getElementById('recipeModal'));
     modal.hide();
 
     loadRecipe(recipeId);
