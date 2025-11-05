@@ -10,10 +10,15 @@ router.get('/',async (req, res)=> {
 });
 
 router.post('/', auth.validateTokenWithCookie ,async (req, res) => {
+    try {
     console.log(req.body);
     let category = req.body;
     let newCategory = await Category.saveCategory(category);
     res.send(newCategory);
+  } catch (error) {
+    console.error('Error saving category:', error);
+    res.status(500).json({ error: 'Error saving category' });
+  }
 });
 
 module.exports = router;
